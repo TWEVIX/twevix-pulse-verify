@@ -40,8 +40,6 @@ st.markdown(
     </style>
     """,
     unsafe_allow_html=True,
-)
-
 def build_certificate_html(
     name: str,
     institution: str,
@@ -56,32 +54,52 @@ def build_certificate_html(
 <head>
 <meta charset="UTF-8">
 <title>TWEVIX PULSE Verified Certificate - {name}</title>
+<link href="https://googleapis.com" rel="stylesheet">
 <style>
   @page {{ size: A4 landscape; margin: 0; }}
   body {{ font-family: 'Segoe UI', Arial, sans-serif; background: #f8fafc; margin: 0; padding: 32px; color: #0f172a; }}
   .cert-frame {{
     max-width: 960px; margin: 0 auto; background: #ffffff;
     border: 10px solid #0f172a; outline: 3px solid #10b981; outline-offset: -18px;
-    padding: 48px 56px; box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    padding: 44px 56px; box-shadow: 0 12px 30px rgba(0,0,0,0.08);
   }}
+  .header-row {{ display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }}
   .top-tag {{ font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #059669; }}
   h1 {{ font-size: 32px; margin: 10px 0 6px 0; color: #0f172a; }}
-  .subtitle {{ font-size: 15px; color: #475569; margin-bottom: 24px; }}
+  .subtitle {{ font-size: 15px; color: #475569; margin-bottom: 22px; }}
+  .cert-logo {{ width: 76px; height: 76px; border-radius: 50%; border: 2.5px solid #10b981; object-fit: cover; }}
   .recipient {{ font-size: 30px; font-weight: 700; color: #0f172a; border-bottom: 2px solid #cbd5e1; display: inline-block; padding-bottom: 6px; margin: 8px 0; }}
-  .institution {{ font-size: 16px; font-weight: 600; color: #334155; margin-bottom: 20px; }}
+  .institution {{ font-size: 16px; font-weight: 600; color: #334155; margin-bottom: 18px; }}
   .body-text {{ font-size: 15px; line-height: 1.6; color: #1e293b; max-width: 780px; }}
-  .track-box {{ background: #ecfdf5; border-left: 5px solid #10b981; padding: 14px 20px; margin: 20px 0; font-size: 17px; font-weight: 700; color: #0f172a; }}
-  .footer-grid {{ display: flex; justify-content: space-between; align-items: flex-end; margin-top: 32px; padding-top: 18px; border-top: 1px solid #e2e8f0; }}
-  .sig-line {{ border-top: 1.5px solid #0f172a; width: 270px; padding-top: 6px; font-size: 13px; }}
-  .hash-box {{ background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 11px; color: #334155; max-width: 460px; word-break: break-all; }}
+  .track-box {{ background: #ecfdf5; border-left: 5px solid #10b981; padding: 14px 20px; margin: 18px 0; font-size: 17px; font-weight: 700; color: #0f172a; }}
+  .footer-grid {{ display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin-top: 26px; padding-top: 16px; border-top: 1px solid #e2e8f0; }}
+  .sig-block {{ width: 265px; font-size: 13px; }}
+  .sig-script {{ font-family: 'Great Vibes', 'Brush Script MT', Georgia, serif; font-size: 34px; font-style: italic; color: #0f172a; line-height: 1.05; margin-bottom: 4px; }}
+  .sig-line {{ border-top: 1.5px solid #0f172a; padding-top: 6px; }}
+  .digital-stamp {{
+    width: 112px; height: 112px; border-radius: 50%;
+    border: 2.5px solid #059669; outline: 1.5px dashed #059669; outline-offset: -6px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; color: #059669; background: rgba(16, 185, 129, 0.05);
+    transform: rotate(-8deg); flex-shrink: 0;
+  }}
+  .stamp-top {{ font-size: 8px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; }}
+  .stamp-mid {{ font-size: 13px; font-weight: 900; letter-spacing: 0.8px; margin: 3px 0; border-top: 1px solid #059669; border-bottom: 1px solid #059669; padding: 2px 6px; }}
+  .stamp-bot {{ font-size: 7.5px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; }}
+  .hash-box {{ background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 11px; color: #334155; max-width: 410px; word-break: break-all; }}
   @media print {{ body {{ background: #ffffff; padding: 0; }} .cert-frame {{ box-shadow: none; }} }}
 </style>
 </head>
 <body>
   <div class="cert-frame">
-    <div class="top-tag">TWEVIX™ • TWEVIX PULSE™ • CRYPTOGRAPHIC PROOF-OF-WORK LEDGER</div>
-    <h1>Certificate of Audited Operational Proof-of-Work</h1>
-    <div class="subtitle">Cryptographically Verified 12-Week (3-Month) Industry Deployment Credential</div>
+    <div class="header-row">
+      <div>
+        <div class="top-tag">TWEVIX™ • TWEVIX PULSE™ • CRYPTOGRAPHIC PROOF-OF-WORK LEDGER</div>
+        <h1>Certificate of Audited Operational Proof-of-Work</h1>
+        <div class="subtitle">Cryptographically Verified 12-Week (3-Month) Industry Deployment Credential</div>
+      </div>
+      <img src="data:image/png;base64,{logo_b64}" alt="TWEVIX PULSE Logo" class="cert-logo" />
+    </div>
     <div>This certifies that</div>
     <div class="recipient">{name}</div>
     <div class="institution">{institution}</div>
@@ -90,10 +108,18 @@ def build_certificate_html(
     </div>
     <div class="track-box">{cycle} — {track}</div>
     <div class="footer-grid">
-      <div class="sig-line">
-        <strong>Willa Abraham</strong><br>
-        MSc Data Science for Business (University of Stirling)<br>
-        Founder &amp; Lead Product Architect, Twevix™
+      <div class="sig-block">
+        <div class="sig-script">Willa Abraham</div>
+        <div class="sig-line">
+          <strong>Willa Abraham</strong><br>
+          MSc Data Science for Business (University of Stirling)<br>
+          Founder &amp; Lead Product Architect, Twevix™
+        </div>
+      </div>
+      <div class="digital-stamp">
+        <div class="stamp-top">TWEVIX PULSE™</div>
+        <div class="stamp-mid">VERIFIED</div>
+        <div class="stamp-bot">SHA-256 SEAL</div>
       </div>
       <div class="hash-box">
         <strong>CREDENTIAL ID:</strong> {cred_id} &nbsp;|&nbsp; <strong>ISSUED:</strong> {issue_date} UTC<br>
