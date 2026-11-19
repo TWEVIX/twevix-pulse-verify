@@ -7,7 +7,9 @@ st.set_page_config(
     page_icon="favicon.png",
     layout="wide",
 )
-st.logo("logo.png", size="large", link="https://pulse.twevix.com/")
+with open("logo.png", "rb") as f:
+    logo_b64 = base64.b64encode(f.read()).decode()
+
 
 
 st.markdown(
