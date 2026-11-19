@@ -16,8 +16,7 @@ st.markdown(
     """
     <style>
     .block-container {
-                padding-top: 3.5rem !important;
-
+        padding-top: 3.5rem !important;
     }
     .stApp {
         background-color: #020617 !important;
@@ -40,6 +39,9 @@ st.markdown(
     </style>
     """,
     unsafe_allow_html=True,
+)
+
+
 def build_certificate_html(
     name: str,
     institution: str,
@@ -130,20 +132,15 @@ def build_certificate_html(
 </body>
 </html>"""
 
+
 st.markdown(
-    f"""
-    <div style="display:flex;align-items:center;gap:16px;padding:0 0 28px 0;">
-        <img src="data:image/png;base64,{logo_b64}" style="width:62px;height:62px;border-radius:50%;border:2px solid #a78bfa;object-fit:cover;" />
-        <div>
-            <div style="font-size:26px;font-weight:900;letter-spacing:-0.02em;line-height:1.1;color:#f8fafc;">
-                TWEVIX <span style="color:#a78bfa;">PULSE™</span>
-            </div>
-            <div style="font-size:12px;font-weight:700;letter-spacing:0.16em;color:#94a3b8;text-transform:uppercase;margin-top:4px;">
-                SHA-256 VERIFICATION • CREDENTIAL MINTER
-            </div>
-        </div>
-    </div>
-    """,
+    f"""<div style="display:flex;align-items:center;gap:16px;padding:0 0 12px 0;margin-bottom:28px;">
+<img src="data:image/png;base64,{logo_b64}" style="width:62px;height:62px;border-radius:50%;border:2px solid #a78bfa;object-fit:cover;" />
+<div>
+<div style="font-size:26px;font-weight:900;letter-spacing:-0.02em;line-height:1.1;color:#f8fafc;">TWEVIX <span style="color:#a78bfa;">PULSE™</span></div>
+<div style="font-size:12px;font-weight:700;letter-spacing:0.16em;color:#94a3b8;text-transform:uppercase;margin-top:4px;">SHA-256 VERIFICATION • CREDENTIAL MINTER</div>
+</div>
+</div>""",
     unsafe_allow_html=True,
 )
 
@@ -215,31 +212,3 @@ with col_mint:
         if not m_name.strip() or not m_inst.strip():
             st.error("Please enter both Learner Name and Institution.")
         elif m_key != expected_key:
-            st.error("Invalid Supervisor Passkey.")
-        else:
-            issue_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-            raw_record = f"{m_name.strip().upper()}|{m_inst.strip().upper()}|{m_cycle}|{m_track}|{issue_date}|TWEVIX-PULSE-ENGINE"
-            full_hash = hashlib.sha256(raw_record.encode("utf-8")).hexdigest()
-            cred_id = f"TVX-{full_hash[:12].upper()}"
-
-            st.success(f"Minted **{cred_id}** for **{m_name.strip()}** ({issue_date} UTC)")
-            st.code(f"Credential ID: {cred_id}\nSHA-256 Hash: {full_hash}", language="text")
-
-            cert_html = build_certificate_html(
-                name=m_name.strip(),
-                institution=m_inst.strip(),
-                cycle=m_cycle,
-                track=m_track,
-                issue_date=issue_date,
-                cred_id=cred_id,
-                sha256_hash=full_hash,
-            )
-            st.download_button(
-                label="Download Printable Certificate (Open & Save as PDF)",
-                data=cert_html,
-                file_name=f"TWEVIX_PULSE_Certificate_{m_name.strip().replace(' ', '_')}.html",
-                mime="text/html",
-            )
-
-st.divider()
-st.link_button("← Back to TWEVIX PULSE™ Home", " https://pulse.twevix.com/")
