@@ -216,4 +216,4 @@ with col_mint:
             )
 
 st.divider()
-st.link_button("← Back to TWEVIX PULSE™ Home", "https://twevix.com")
+st.link_button("← Back to TWEVIX PULSE™ Home", " https://pulse.twevix.com/")
