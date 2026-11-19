@@ -195,7 +195,6 @@ with col_audit:
             st.success(f"VERIFIED AUTHENTIC: `{computed_id}` matches **{a_name.strip()}** ({a_cycle}).")
         else:
             st.error("AUDIT MISMATCH: Details do not match the cryptographic hash on file.")
-
 with col_mint:
     st.subheader(":material/encrypted: Mint Rotation Credential (Supervisor)")
     st.write("Generate a new SHA-256 fingerprint and printable A4 certificate for a completed 3-month cycle.")
@@ -207,7 +206,7 @@ with col_mint:
         m_key = st.text_input("Supervisor Passkey", type="password")
         mint_btn = st.form_submit_button("Mint SHA-256 Hash & Certificate")
 
-        if mint_btn:
+    if mint_btn:
         expected_key = st.secrets.get("COHORT_KEY", "TWEVIX2026")
         if not m_name.strip() or not m_inst.strip():
             st.error("Please enter both Learner Name and Institution.")
@@ -239,4 +238,5 @@ with col_mint:
             )
 
 st.divider()
-st.link_button("← Back to TWEVIX PULSE™ Home", "https://twevix.com")
+st.link_button("← Back to TWEVIX PULSE™ Home", "https://pulse.twevix.com/")
+
