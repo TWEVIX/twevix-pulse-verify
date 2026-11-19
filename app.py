@@ -17,15 +17,22 @@ with open("logo.png", "rb") as f:
 
 
 st.markdown(
+   st.markdown(
     """
     <style>
-    .stApp { background-color: #020617; color: #f8fafc; }
+    .block-container {
+        padding-top: 1.5rem !important;
+    }
+    .stApp {
+        background-color: #020617 !important;
+        color: #f8fafc !important;
+    }
     .hero-banner {
-        background: linear-gradient(135deg, rgba(167,139,250,0.18) 0%, #0f172a 70%);
-        border: 1px solid rgba(167,139,250,0.4);
+        background: linear-gradient(135deg, rgba(167, 139, 250, 0.14) 0%, #0b1221 65%) !important;
+        border: 1px solid rgba(167, 139, 250, 0.35) !important;
         border-radius: 16px;
-        padding: 28px 32px;
-        margin-bottom: 24px;
+        padding: 32px 36px;
+        margin-bottom: 28px;
     }
     .stButton > button, .stDownloadButton > button, .stLinkButton > a {
         background: #a78bfa !important;
@@ -34,6 +41,11 @@ st.markdown(
         border-radius: 10px !important;
         border: none !important;
     }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
     </style>
     """,
     unsafe_allow_html=True,
