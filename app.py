@@ -7,7 +7,7 @@ st.set_page_config(
     page_icon="favicon.png",
     layout="wide",
 )
-st.logo("logo.png", link="https://pulse.twevix.com/")
+st.logo("logo.png", size="large", link="https://pulse.twevix.com/")
 
 
 st.markdown(
