@@ -207,7 +207,8 @@ with col_mint:
         mint_btn = st.form_submit_button("Mint SHA-256 Hash & Certificate")
 
     if mint_btn:
-        expected_key = st.secrets.get("COHORT_KEY", "TWEVIX2026")
+       expected_key = st.secrets["COHORT_KEY"]
+
         if not m_name.strip() or not m_inst.strip():
             st.error("Please enter both Learner Name and Institution.")
         elif m_key != expected_key:
