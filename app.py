@@ -109,7 +109,7 @@ st.markdown(
                 TWEVIX <span style="color:#fbbf24;">PULSE™</span>
             </div>
             <div style="font-size:12px;font-weight:700;letter-spacing:0.16em;color:#94a3b8;text-transform:uppercase;margin-top:4px;">
-                VERIFIED TALENT • HR-TECH DIRECTORY
+                VERIFIED CERTIFICATE 
             </div>
         </div>
     </div>
