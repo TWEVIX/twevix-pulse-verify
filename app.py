@@ -1,7 +1,4 @@
 import base64
-import pandas as pd
-import streamlit as st
-
 import hashlib
 from datetime import datetime, timezone
 import streamlit as st
@@ -11,13 +8,11 @@ st.set_page_config(
     page_icon="favicon.png",
     layout="wide",
 )
+
 with open("logo.png", "rb") as f:
     logo_b64 = base64.b64encode(f.read()).decode()
 
-
-
 st.markdown(
-   st.markdown(
     """
     <style>
     .block-container {
@@ -41,11 +36,6 @@ st.markdown(
         border-radius: 10px !important;
         border: none !important;
     }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
     </style>
     """,
     unsafe_allow_html=True,
@@ -112,6 +102,7 @@ def build_certificate_html(
   </div>
 </body>
 </html>"""
+
 st.markdown(
     f"""
     <div style="display:flex;align-items:center;gap:16px;padding:0 0 28px 0;">
@@ -128,7 +119,6 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
-
 
 st.markdown(
     """
