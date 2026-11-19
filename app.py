@@ -16,7 +16,8 @@ st.markdown(
     """
     <style>
     .block-container {
-        padding-top: 1.5rem !important;
+                padding-top: 3.5rem !important;
+
     }
     .stApp {
         background-color: #020617 !important;
