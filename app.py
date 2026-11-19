@@ -207,8 +207,36 @@ with col_mint:
         m_key = st.text_input("Supervisor Passkey", type="password")
         mint_btn = st.form_submit_button("Mint SHA-256 Hash & Certificate")
 
-    if mint_btn:
+        if mint_btn:
         expected_key = st.secrets.get("COHORT_KEY", "TWEVIX2026")
         if not m_name.strip() or not m_inst.strip():
             st.error("Please enter both Learner Name and Institution.")
         elif m_key != expected_key:
+            st.error("Invalid Supervisor Passkey.")
+        else:
+            issue_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+            raw_record = f"{m_name.strip().upper()}|{m_inst.strip().upper()}|{m_cycle}|{m_track}|{issue_date}|TWEVIX-PULSE-ENGINE"
+            full_hash = hashlib.sha256(raw_record.encode("utf-8")).hexdigest()
+            cred_id = f"TVX-{full_hash[:12].upper()}"
+
+            st.success(f"Minted **{cred_id}** for **{m_name.strip()}** ({issue_date} UTC)")
+            st.code(f"Credential ID: {cred_id}\nSHA-256 Hash: {full_hash}", language="text")
+
+            cert_html = build_certificate_html(
+                name=m_name.strip(),
+                institution=m_inst.strip(),
+                cycle=m_cycle,
+                track=m_track,
+                issue_date=issue_date,
+                cred_id=cred_id,
+                sha256_hash=full_hash,
+            )
+            st.download_button(
+                label="Download Printable Certificate (Open & Save as PDF)",
+                data=cert_html,
+                file_name=f"TWEVIX_PULSE_Certificate_{m_name.strip().replace(' ', '_')}.html",
+                mime="text/html",
+            )
+
+st.divider()
+st.link_button("← Back to TWEVIX PULSE™ Home", "https://twevix.com")
