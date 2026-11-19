@@ -4,9 +4,10 @@ import streamlit as st
 
 st.set_page_config(
     page_title="TWEVIX PULSE™ | Trust SHA-256 Audit & Credential Minter",
-    page_icon=":material/verified_user:",
+    page_icon="favicon.png",
     layout="wide",
 )
+st.logo("logo.png", link="https://twevix.com")
 
 st.markdown(
     """
